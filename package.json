@@ -1,0 +1,23 @@
+{
+  "name": "sa_unbounce",
+  "version": "1.0.0",
+  "description": "Software advice integration with Unbounce",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+      "build": "./node_modules/.bin/babel src/*.js --out-dir lib/ && npm run minifyForm && npm run minifyParent",
+      "minifyForm": "./node_modules/.bin/uglifyjs lib/sa_unbounce_form.js -o lib/sa_unbounce_form.js",
+      "minifyParent": "./node_modules/.bin/uglifyjs lib/sa_unbounce_parent.js -o lib/sa_unbounce_parent.js"
+  },
+  "author": "Software Advice",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "uglify-js": "^3.4.9"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0"
+  }
+}
