@@ -39,7 +39,7 @@ Saving Data will capture the following values. The following are required for sa
 ** Replacing Fields
 If you do not want the user to have to complete any of the [[Form Fields][required fields]], you can add them as a hidden input on the page with a default value that you determine. However, the ~id~ of the field /must/ match the table above. For instance, if you do not want the user to have to complete the last name field, you can add it as a hidden input with the id ~last_name~, and a default value that the database allows (i.e. ~-----~).
 
-** Multiple Pages
+** Multiple Pages (i.e. Lightbox or Popup Form)
 If your landing page is made up of multiple pages with the form appearing on a different page then you'll need to include a second script. For example, if you are displaying the form in a lightbox the above script should go on the page with the form. On the main page (called ~Page~ by default in Unbounce), add the following Javascript by clicking the ~+Add New Javascript~ option in the Javascript menu.
 #+BEGIN_SRC html
   <!-- Usage instructions are located here: https://github.com/jeremygooch/sa_unbounce/blob/master/readme.org -->

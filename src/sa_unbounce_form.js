@@ -7,7 +7,7 @@ function saunbounce() {
 	 *   type[str]: POST | GET,
 	 *   url[str]: devbed url,
 	 *   data[obj]: data for payload,
-	 *   encoded[boolean]: include btoa headers,
+	 *   encoded[enum]: 'devbed', 'partners',
 	 *   success[fn]: success callback function
 	 *   error[fn]: error callback function
 	 * }
@@ -18,8 +18,10 @@ function saunbounce() {
 	http.open(options.type, options.url, true);
 
 	http.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-	if (options.encoded) {
+	if (options.encoded === 'devbed') {
 	    http.setRequestHeader("Authorization", 'Basic ' + btoa('saguest:9y4vu'));
+	} else if (options.encoded === 'partners') {
+	    http.setRequestHeader('X-API-KEY', '589374c5ebbcf9403e58c145207799c87aec278b');
 	}
 
 	http.onreadystatechange = function () {
@@ -224,55 +226,51 @@ function saunbounce() {
 
 	if (!form || !isHidden(errorDisplay)) return false;
 
-	// Make sure the required data is there
 	if (!this.marketData['industry_id']) {
 	    throw new Error('No industry id specified for this form');
 	};
 
-	var userData = {};
+	var apiData = {
+	    'market_id': this.marketData['industry_id'],
+	    'type': this.formElms.formType ? this.formElms.formType.value : 'multiquote',
+	    'segment_id': this.formElms.industry ? this.formElms.industry.value : this.industry,
+	    'modules': (this.formElms.features && this.formElms.features.value)
+	    	? [ this.formElms.features.value ]
+	    	: this['software_features'],
+	    'size_id': this.formElms.size ? this.formElms.size.value : this['size_of_organization'],
+	};
 	for (var i = 0; i < form.length; i++) {
 	    switch (form[i].id) {
 	    case 'first_name':
-		userData.f_name = form[i].value;
+		apiData.f_name = form[i].value;
 		break;
 	    case 'last_name':
-		userData.l_name = form[i].value;
+		apiData.l_name = form[i].value;
 		break;
 	    case 'email':
-		userData.email = form[i].value;
+		apiData.email = form[i].value;
 		break;
 	    case 'phone_number':
-		userData.phone = form[i].value;
+		apiData.phone = form[i].value;
 		break;
 	    case 'company_name':
-		userData.company = form[i].value;
+		apiData.company = form[i].value;
 		break;
 	    default:
 		break;
 	    }
 	}
 
-	var apiData = {
-	    'industry_id': this.marketData['industry_id'],
-	    'type': this.formElms.formType ? this.formElms.formType.value : 'quote',
-	    'queue': this.formElms.leadType ? this.formElms.leadType.value : 'hql',
-	    'segment_id': this.formElms.industry ? this.formElms.industry.value : this.industry,
-	    'modules': (this.formElms.features && this.formElms.features.value)
-		? [ this.formElms.features.value ]
-		: this['software_features'],
-	    'size_id': this.formElms.size ? this.formElms.size.value : this['size_of_organization'],
-	    'contact': userData
-	};
-
 	if (this.clickIds.gclid) {
-	    apiData.tracking = { gclid: this.clickIds.gclid };
+	    apiData.tracking = { utm_gclid: this.clickIds.gclid };
 	} else if (this.clickIds.msclkid) {
-	    apiData.tracking = { msclkid: this.clickIds.gclid };
+	    apiData.tracking = { utm_msclkid: this.clickIds.msclkid };
 	}
 
 	request({
-	    url: 'https://conversions-api.softwareadvice.com/v0/conversions',
+	    url: 'https://api.softwareadvice.com/v0/conversions',
 	    type: 'POST',
+	    encoded: 'partners',
 	    data: JSON.stringify(apiData),
 	    success: function(res) {
 		//
@@ -297,7 +295,7 @@ function saunbounce() {
 	    request({
 		url: 'https://products-api04.dev.softwareadvice.com/v0/categories/by_uri/'+industryId.value+'/us',
 		type: 'GET',
-		encoded: true,
+		encoded: 'devbed',
 		success: (populateFields).bind(this)
 	    });
 	}
