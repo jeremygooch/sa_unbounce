@@ -1,11 +1,11 @@
 * Unbounce External Scripts for SA
 ** Usage
-To include this script on your form, click Javascript at the bottom of the Editor, and click ~+ Add New Javascript~.
+To include this script on the page with your form, click Javascript at the bottom of the Editor, and click ~+ Add New Javascript~. Make sure you're editing the page with the form.
 
 Copy the below code and paste it in the editor.
 #+BEGIN_SRC html
-<!-- Usage instructions are located here: https://gist.github.com/jeremygooch/d20a6eebdf1f3cc93880cbd9440a25c5#file-sa_unbounce_readme-org -->
-<script src="https://gistcdn.githack.com/jeremygooch/d20a6eebdf1f3cc93880cbd9440a25c5/raw/7c444b82b11f7f4f61c2fbeb1071de4afc0c42d7/saunbounce.js"></script>
+<!-- Usage instructions are located here: https://github.com/jeremygooch/sa_unbounce/blob/master/readme.org -->
+<script src="https://rawcdn.githack.com/jeremygooch/sa_unbounce/8f126fb8da94ed0ad4a40a6071575ebf61271b54/lib/sa_unbounce_form.js"></script>
 
 #+END_SRC
 
@@ -39,6 +39,16 @@ Saving Data will capture the following values. The following are required for sa
 ** Replacing Fields
 If you do not want the user to have to complete any of the [[Form Fields][required fields]], you can add them as a hidden input on the page with a default value that you determine. However, the ~id~ of the field /must/ match the table above. For instance, if you do not want the user to have to complete the last name field, you can add it as a hidden input with the id ~last_name~, and a default value that the database allows (i.e. ~-----~).
 
+** Multiple Pages
+If your landing page is made up of multiple pages with the form appearing on a different page then you'll need to include a second script. For example, if you are displaying the form in a lightbox the above script should go on the page with the form. On the main page (called ~Page~ by default in Unbounce), add the following Javascript by clicking the ~+Add New Javascript~ option in the Javascript menu.
+#+BEGIN_SRC html
+  <!-- Usage instructions are located here: https://github.com/jeremygooch/sa_unbounce/blob/master/readme.org -->
+  <script src="https://rawcdn.githack.com/jeremygooch/sa_unbounce/8f126fb8da94ed0ad4a40a6071575ebf61271b54/lib/sa_unbounce_parent.js"></script>
+
+#+END_SRC
+
+Again, the Placement of the script should be ~Before Body End Tag~.
+
 
 * Development
 
@@ -58,7 +68,13 @@ After setting up the project with ~npm i~, the source code can be transpiled wit
 
 If you use emacs, simply evaluate the above code and emacs will transpile your code on every save.
 
-** Debugging/Development Workflow
-It's often handy to use the un-transpiled version of the code for debugging and development. This can be added directly into unbounce as long as you're using an up-to-date web browser. Code can be iterated much easier in this manner. 
+*** Future Idea for Automatic Updates
+At some point we may want to introduce a precommit hook that will transpile the code. Therefore when any changes are pushed to master remotely, the contents under lib/ will be updated and any forms using these scripts will be updated automatically.
 
-However, once the changes are complete and ready to use in a real campaign, the untranspiled code must be swapped out with the minified version so that all of our supported browsers can run the code without issue.
+At this time these libs are simply POC therefor this feature has not been introduced.
+
+** Debugging/Development Workflow
+It's often handy to use the un-transpiled version of the code for debugging and development. The untranspiled code can be added directly into unbounce and run as long as you're using an up-to-date web browser. Code changes can be iterated much easier in this manner. 
+
+However, once the changes are complete and ready to use in a real campaign, the untranspiled code must be swapped out with the minified version so that all of our supported browsers can run the code without issue. It's wise to retest with the transpiled code to ensure that nothing strange was introduced before going live.
+
