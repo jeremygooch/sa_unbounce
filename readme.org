@@ -19,18 +19,17 @@ To use this script you need at least 2 hidden fields on the form. The ids of the
 
 ** Form Fields
 Saving Data will capture the following values. The following are required for saving a conversion:
-| id*                  | Field Type              | Required? | db/api value | Data types                  | Default Value |
-|----------------------+-------------------------+-----------+--------------+-----------------------------+---------------|
-| first_name           | input                   | X         | f_name       | Text                        | N/A           |
-| last_name            | input                   | X         | l_name       | Text                        | N/A           |
-| email                | input                   | X         | email        | Text [email]                | N/A           |
-| size_of_organization | select, radio           | X         | size_id      | prefilled load              | N/A           |
-| industry             | select, radio           | X         | segment_id   | prefilled load              | N/A           |
-| software_features    | select, radio, checkbox | X         | modules      | prefilled                   | N/A           |
-| phone_number         | input                   | -         | phone        | Text                        | N/A           |
-| company_name         | input                   | -         | company      | Text                        | N/A           |
-| form_type            | input                   | -         | type         | Different form types**      | quote         |
-| lead_type            | input                   | -         | queue        | hql, csl, hql_international | hql           |
+| id*                  | Field Type              | Required? | db/api value | Data types             | Default Value |
+|----------------------+-------------------------+-----------+--------------+------------------------+---------------|
+| first_name           | input                   | X         | f_name       | Text                   | N/A           |
+| last_name            | input                   | X         | l_name       | Text                   | N/A           |
+| email                | input                   | X         | email        | Text [email]           | N/A           |
+| size_of_organization | select, radio           | X         | size_id      | prefilled load         | N/A           |
+| industry             | select, radio           | X         | segment_id   | prefilled load         | N/A           |
+| software_features    | select, radio, checkbox | X         | modules      | prefilled              | N/A           |
+| phone_number         | input                   | -         | phone        | Text                   | N/A           |
+| company_name         | input                   | -         | company      | Text                   | N/A           |
+| form_type            | input                   | -         | type         | Different form types** | multiquote    |
 
 /* The id can be changed for any form element by unchecking the ~Auto-generate from Field Label~ checkbox/
 
