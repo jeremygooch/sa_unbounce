@@ -7,6 +7,7 @@ function saunbounce() {
 	 *   type[str]: POST | GET,
 	 *   url[str]: devbed url,
 	 *   data[obj]: data for payload,
+	 *   encoded[boolean]: include btoa headers,
 	 *   success[fn]: success callback function
 	 *   error[fn]: error callback function
 	 * }
@@ -17,7 +18,9 @@ function saunbounce() {
 	http.open(options.type, options.url, true);
 
 	http.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-	http.setRequestHeader("Authorization", 'Basic ' + btoa('saguest:9y4vu'));
+	if (options.encoded) {
+	    http.setRequestHeader("Authorization", 'Basic ' + btoa('saguest:9y4vu'));
+	}
 
 	http.onreadystatechange = function () {
 	    if (http.readyState === 4 && http.status === 200) {
@@ -268,7 +271,7 @@ function saunbounce() {
 	}
 
 	request({
-	    url: 'https://conversions-api04.dev.softwareadvice.com/v0/conversions',
+	    url: 'https://conversions-api.softwareadvice.com/v0/conversions',
 	    type: 'POST',
 	    data: JSON.stringify(apiData),
 	    success: function(res) {
@@ -294,6 +297,7 @@ function saunbounce() {
 	    request({
 		url: 'https://products-api04.dev.softwareadvice.com/v0/categories/by_uri/'+industryId.value+'/us',
 		type: 'GET',
+		encoded: true,
 		success: (populateFields).bind(this)
 	    });
 	}
