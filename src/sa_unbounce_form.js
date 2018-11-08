@@ -231,13 +231,13 @@ function saunbounce() {
 	};
 
 	var apiData = {
-	    'market_id': this.marketData['industry_id'],
+	    'market_id': this.marketData['industry_id'] * 1,
 	    'type': this.formElms.formType ? this.formElms.formType.value : 'multiquote',
-	    'segment_id': this.formElms.industry ? this.formElms.industry.value : this.industry,
+	    'segment_id': this.formElms.industry ? (this.formElms.industry.value * 1) : (this.industry * 1),
 	    'modules': (this.formElms.features && this.formElms.features.value)
 	    	? [ this.formElms.features.value ]
 	    	: this['software_features'],
-	    'size_id': this.formElms.size ? this.formElms.size.value : this['size_of_organization'],
+	    'size_id': this.formElms.size ? (this.formElms.size.value * 1) : (this['size_of_organization'] * 1),
 	};
 	for (var i = 0; i < form.length; i++) {
 	    switch (form[i].id) {
