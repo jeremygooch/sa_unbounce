@@ -155,6 +155,7 @@ function saunbounce() {
 
 
     function initialPageValidation() {
+	var urlVars = getUrlVars();
 	this.formElms = this.formElms || {};
 	this.formElms.fname	= document.getElementById('first_name');
 	this.formElms.lname	= document.getElementById('last_name');
@@ -167,8 +168,13 @@ function saunbounce() {
 	this.formElms.formType	= document.getElementById('form_type');
 	this.formElms.leadType	= document.getElementById('lead_type');
 	this.clickIds = {
-	    gclid: getUrlVars()['gclid'],
-	    msclkid: getUrlVars()['msclkid']
+	    parnter_id:		urlVars['partner_id'],
+	    utm_gclid:		urlVars['gclid'],
+	    utm_msclkid:	urlVars['msclkid'],
+	    utm_campaign:	urlVars['utm_campaign'],
+	    ga_source:		urlVars['utm_source'],
+	    ga_medium:		urlVars['utm_medium'],
+	    gwo_variation:	urlVars['gwo_variation'],
 	};
 
 	if (!this.clickIds.gclid && !this.clickIds.msclkid) {
@@ -176,12 +182,18 @@ function saunbounce() {
 	    // Post a message asking the parent window for click ids
 	    var that = this;
 	    window.parent.postMessage({
-		message: 'return-click-ids'
+		message: 'return-url-vars'
 	    }, '*');
 	    window.addEventListener('message', function(event) {
 		console.log('child frame received this message: ', event);
-		if (event.data.gclid) { that.clickIds.gclid = event.data.gclid }
-		if (event.data.msclkid) { that.clickIds.msclkid = event.data.msclkid }
+		if (event.data.partner_id)	{ that.clickIds.partner_id	= event.data.partner_id }
+		if (event.data.utm_gclid)	{ that.clickIds.utm_gclid	= event.data.utm_gclid }
+		if (event.data.utm_msclkid)	{ that.clickIds.utm_msclkid	= event.data.utm_msclkid }
+		if (event.data.utm_campaign)	{ that.clickIds.utm_campaign	= event.data.utm_campaign }
+		if (event.data.ga_source)	{ that.clickIds.ga_source	= event.data.ga_source }
+		if (event.data.ga_medium)	{ that.clickIds.ga_medium	= event.data.ga_medium }
+		if (event.data.gwo_variation)	{ that.clickIds.gwo_variation	= event.data.gwo_variation }
+
 	    }, false);
 	}
 
@@ -261,11 +273,13 @@ function saunbounce() {
 	    }
 	}
 
-	if (this.clickIds.gclid) {
-	    apiData.tracking = { utm_gclid: this.clickIds.gclid };
-	} else if (this.clickIds.msclkid) {
-	    apiData.tracking = { utm_msclkid: this.clickIds.msclkid };
-	}
+	if (this.clickIds.partner_id)		{ apiData.partner_id	= this.clickIds.partner_id; }
+	if (this.clickIds.utm_gclid)		{ apiData.utm_gclid	= this.clickIds.utm_gclid; }
+	if (this.clickIds.utm_msclkid)		{ apiData.utm_msclkid	= this.clickIds.utm_msclkid; }
+	if (this.clickIds.utm_campaign)		{ apiData.utm_campaign	= this.clickIds.utm_campaign; }
+	if (this.clickIds.ga_source)		{ apiData.ga_source	= this.clickIds.ga_source; }
+	if (this.clickIds.ga_medium)		{ apiData.ga_medium	= this.clickIds.ga_medium; }
+	if (this.clickIds.gwo_variation)	{ apiData.gwo_variation = this.clickIds.gwo_variation; }
 
 	request({
 	    url: 'https://api.softwareadvice.com/v0/conversions',
