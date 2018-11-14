@@ -307,9 +307,8 @@ function saunbounce() {
 
 	if (industryId) {
 	    request({
-		url: 'https://products-api04.dev.softwareadvice.com/v0/categories/by_uri/'+industryId.value+'/us',
+		url: 'https://products-api.softwareadvice.com/v0/categories/by_uri/'+industryId.value+'/us',
 		type: 'GET',
-		encoded: 'devbed',
 		success: (populateFields).bind(this)
 	    });
 	}
