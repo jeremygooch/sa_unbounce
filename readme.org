@@ -4,9 +4,8 @@ To include this script on the page with your form, click Javascript at the botto
 
 Copy the below code and paste it in the editor.
 #+BEGIN_SRC html
-<!-- Usage instructions are located here: https://github.com/jeremygooch/sa_unbounce/blob/master/readme.org -->
-<script src="https://rawcdn.githack.com/jeremygooch/sa_unbounce/8f126fb8da94ed0ad4a40a6071575ebf61271b54/lib/sa_unbounce_form.js"></script>
-
+  <!-- Usage instructions are located here: https://github.com/jeremygooch/sa_unbounce/blob/master/readme.org -->
+  <script src="https://rawcdn.githack.com/jeremygooch/sa_unbounce/ece8bf722c0344f3ab2be7fd8ac1de9a4d5db297/lib/sa_unbounce_form.js"></script>
 #+END_SRC
 
 Change the Placement of the script to ~Before Body End Tag~.
@@ -42,8 +41,7 @@ If you do not want the user to have to complete any of the [[Form Fields][requir
 If your landing page is made up of multiple pages with the form appearing on a different page then you'll need to include a second script. For example, if you are displaying the form in a lightbox the above script should go on the page with the form. On the main page (called ~Page~ by default in Unbounce), add the following Javascript by clicking the ~+Add New Javascript~ option in the Javascript menu.
 #+BEGIN_SRC html
   <!-- Usage instructions are located here: https://github.com/jeremygooch/sa_unbounce/blob/master/readme.org -->
-  <script src="https://rawcdn.githack.com/jeremygooch/sa_unbounce/8f126fb8da94ed0ad4a40a6071575ebf61271b54/lib/sa_unbounce_parent.js"></script>
-
+  <script src="https://rawcdn.githack.com/jeremygooch/sa_unbounce/ece8bf722c0344f3ab2be7fd8ac1de9a4d5db297/lib/sa_unbounce_parent.js"></script>
 #+END_SRC
 
 Again, the Placement of the script should be ~Before Body End Tag~.
